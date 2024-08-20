@@ -42,9 +42,11 @@ public class Coach extends Rutina {
         this.horario = horario;
         this.precio = precio;
         this.especialidad = especialidad;
-        this.mediaJornada = (mediaJornada != null) ? mediaJornada : new ArrayList<>();
-        this.jornadaCompleta = (jornadaCompleta != null) ? jornadaCompleta : new ArrayList<>();
+        this.mediaJornada = mediaJornada; 
+        this.jornadaCompleta = jornadaCompleta;
+        
     }
+     
 
     // GETTERS
     public String getNombre() {
@@ -121,26 +123,31 @@ public class Coach extends Rutina {
             }
         }
     }
+    
+    //creamos una función para que el horario de los coaches nos imprima los días que están disponibles
+    public void horarioCompleto(List<String> horario, String nombre) {
+        System.out.println(getNombre() + " está disponible a jornada completa o parcial los días:   ");
 
-    public void horarioCompleto(List<String> Horario, String nombre) {
-         System.out.println("Los días que" + getNombre() + "trabaja todo el día son: ");
+        List<String> mediaJornada = new ArrayList<>();
+        List<String> jornadaCompleta = new ArrayList<>();
 
-        for (String dia : horario) {
-            if (dia.contains("PM")) {
+        for (int i = 0; i < horario.size(); i++) {
+            String dia = horario.get(i);
+
+            if (dia.contains("AM") || dia.contains("PM")) {
+                // Quitar "AM" o "PM"
+                dia = dia.replace("AM", "").replace("PM", "").trim();
                 mediaJornada.add(dia);
-                System.out.print(dia);
-
-                if (dia.contains("AM")) {
-                    mediaJornada.add(dia);
-                    System.out.print(dia);
-                }
+                System.out.println(dia + " - Media Jornada");
             } else {
                 jornadaCompleta.add(dia);
-                System.out.print(dia);
+                System.out.println(dia + " - Jornada Completa");
             }
         }
+    }
 
-    public void mostrarHorario(){
+
+        public void mostrarHorario(){
         System.out.println("Horario de " + nombre + ":");
         for (String dia : horario) {
             System.out.println(dia);
@@ -156,6 +163,5 @@ public class Coach extends Rutina {
 
 
     }
-}
     
        

@@ -40,6 +40,11 @@ public class Membresia {
         return precioBase;
     }
 
+    public String getTipo() {
+        return tipo;
+    }
+    
+
     // Métodos específicos para cada tipo de membresía
     public boolean puedeEntrenar(String dia, int coachPermitidos) {
         switch (tipo) {

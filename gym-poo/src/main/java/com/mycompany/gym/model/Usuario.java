@@ -10,6 +10,8 @@ public class Usuario extends TarjetaCredito{
     private List<String> preferencias;
     private double presupuesto; 
     public boolean tarjeta; 
+    private String membresiaUsuario;
+    
     
     public Usuario(){ }
 
@@ -20,6 +22,8 @@ public class Usuario extends TarjetaCredito{
         this.preferencias = preferencias;
         this.presupuesto = presupuesto; 
     }
+    
+    
     
 
     //getters
@@ -42,6 +46,11 @@ public class Usuario extends TarjetaCredito{
     public double getPresupuesto() {
         return presupuesto;
     }
+
+    public String getMembresiaUsuario() {
+        return membresiaUsuario;
+    }
+
     
     
     
@@ -66,6 +75,12 @@ public class Usuario extends TarjetaCredito{
     public void setPresupuesto(double presupuesto) {
         this.presupuesto = presupuesto;
     }
+
+    public void setMembresiaUsuario(String membresiaUsuario) {
+        this.membresiaUsuario = membresiaUsuario;
+    }
+    
+    
     
     
     
