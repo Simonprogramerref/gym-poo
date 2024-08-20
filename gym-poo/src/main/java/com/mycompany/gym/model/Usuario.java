@@ -2,21 +2,29 @@ package com.mycompany.gym.model;
 
 import java.util.List;
 
-public class Usuario {
+public class Usuario extends TarjetaCredito{
 
     private String nombre;
     private int edad;
     private int disponibilidad;
     private List<String> preferencias;
+    private double presupuesto; 
+    public boolean tarjeta; 
+    private String membresiaUsuario;
+    
     
     public Usuario(){ }
 
-    public Usuario(String nombre, int edad, int disponibilidad, List<String> preferencias) {
+    public Usuario(String nombre, int edad, int disponibilidad, List<String> preferencias, double presupuesto) {
         this.nombre = nombre;
         this.edad = edad;
         this.disponibilidad = disponibilidad;
         this.preferencias = preferencias;
+        this.presupuesto = presupuesto; 
     }
+    
+    
+    
 
     //getters
     public String getNombre() {
@@ -34,6 +42,17 @@ public class Usuario {
     public List<String> getPreferencias() {
         return preferencias;
     }
+
+    public double getPresupuesto() {
+        return presupuesto;
+    }
+
+    public String getMembresiaUsuario() {
+        return membresiaUsuario;
+    }
+
+    
+    
     
     //Setters
 
@@ -52,6 +71,17 @@ public class Usuario {
     public void setPreferencias(List<String> preferencias) {
         this.preferencias = preferencias;
     }
+
+    public void setPresupuesto(double presupuesto) {
+        this.presupuesto = presupuesto;
+    }
+
+    public void setMembresiaUsuario(String membresiaUsuario) {
+        this.membresiaUsuario = membresiaUsuario;
+    }
+    
+    
+    
     
     
     
@@ -64,4 +94,14 @@ public class Usuario {
             System.out.println("No se encontró un coach que coincida con las preferencias de " + this.nombre);
         }
     }
+
+    public void setTarjeta(boolean tarjeta) {
+        this.tarjeta = tarjeta;
+    }
+
+    public boolean isTarjeta() {
+        return tarjeta;
+    }
+
+    
 }
