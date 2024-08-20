@@ -112,7 +112,7 @@ public class Main {
             }
         }
 
-        System.out.println("\nHas seleccionado la membresía: " + seleccionada.mostrarDetalles());
+        System.out.println("\nHas seleccionado la membresíaa: " + seleccionada.mostrarDetalles());
 
         // Verificar si el presupuesto es suficiente
         double presupuesto = user1.getDisponibilidad();
