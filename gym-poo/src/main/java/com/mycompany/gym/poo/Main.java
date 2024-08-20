@@ -35,24 +35,23 @@ public class Main {
         // Mensaje adicional
         System.out.println("Gracias: " + user1.getNombre() + "\nAhora, te pedire informacion adicional:" + "\n----->");
 
-        // Validad edad 
+        // Validar edad
         while (true) {
-            System.out.println("¿Cual es tu edad");
-            if (scanner.hasNextInt()) {
-                int edad = scanner.nextInt();
-                if (edad >= 0 && edad <= 120) {
+            System.out.println("¿Cuál es tu edad?");
+            String input = scanner.nextLine(); // Leer la entrada como string para validación
+
+            if (input.matches("\\d+")) { // Verificar que la entrada contiene solo dígitos
+                int edad = Integer.parseInt(input); // Convertir la entrada en un número entero
+                if (edad >= 0 && edad <= 50) { // Ajustado para aceptar solo edades entre 0 y 50
                     user1.setEdad(edad);
-                    break;
+                    break; // Salir del bucle si la edad es válida
                 } else {
-                    System.out.println("Error: La edad debe ser un valor entre 0 y 120. Intentalo de nuevo. ");
+                    System.out.println("Error: La edad debe ser un valor entre 0 y 50. Inténtalo de nuevo.");
                 }
             } else {
-                System.out.println("Error: Debes ingresar un numero entero para la edad");
-                scanner.next();
+                System.out.println("Error: Debes ingresar un número entero para la edad.");
             }
         }
-
-        scanner.nextLine();
 
         // Validar disponibilidad horaria
         while (true) {
