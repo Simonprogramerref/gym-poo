@@ -1,18 +1,11 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- */
 package com.mycompany.gym.poo;
 
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- *
- * @author sebas
- */
 public class GymPoo {
 
-    class Usuario {
+    static class Usuario {
 
         private String nombre;
         private int edad;
@@ -26,7 +19,7 @@ public class GymPoo {
             this.preferencias = preferencias;
         }
 
-        // Getters y setters
+        // Getters
         public String getNombre() {
             return nombre;
         }
@@ -44,7 +37,7 @@ public class GymPoo {
         }
     }
 
-    class Rutina {
+    static class Rutina {
 
         private List<String> ejercicios;
         private int duracion;
@@ -81,7 +74,7 @@ public class GymPoo {
         }
     }
 
-    class TarjetaCredito {
+    static class TarjetaCredito {
 
         private String numero;
         private String titular;
@@ -107,7 +100,7 @@ public class GymPoo {
         }
     }
 
-    class Membresia {
+    static class Membresia {
 
         private String tipo;
         private double precioBase;
@@ -138,11 +131,84 @@ public class GymPoo {
         }
     }
 
-    class Gimnasio {
+    static class Coach {
+
+        private String nombre;
+        private ArrayList<String> horario;
+        private double precio;
+        private String tipoEntrenamiento;
+        private Maquina maquinaAsociada;
+
+        public Coach(String nombre, double precio, String tipoEntrenamiento) {
+            this.nombre = nombre;
+            this.precio = precio;
+            this.horario = new ArrayList<>();
+            this.tipoEntrenamiento = tipoEntrenamiento;
+            this.maquinaAsociada = asignarMaquina(tipoEntrenamiento);
+        }
+
+        private Maquina asignarMaquina(String tipoEntrenamiento) {
+            switch (tipoEntrenamiento.toLowerCase()) {
+                case "cardio":
+                    return new Maquina("Cinta de correr", "Cardio");
+                case "fuerza":
+                    return new Maquina("Banco de pesas", "Fuerza");
+                case "flexibilidad":
+                    return new Maquina("Máquina de estiramiento", "Flexibilidad");
+                default:
+                    return new Maquina("Máquina multifuncional", "General");
+            }
+        }
+
+        public String getNombre() {
+            return nombre;
+        }
+
+        public String getTipoEntrenamiento() {
+            return tipoEntrenamiento;
+        }
+
+        public Maquina getMaquinaAsociada() {
+            return maquinaAsociada;
+        }
+
+        public void agregarDia(String dia) {
+            horario.add(dia);
+        }
+
+        public void mostrarHorario() {
+            System.out.println("Horario de " + nombre + ":");
+            for (String dia : horario) {
+                System.out.println(dia);
+            }
+        }
+    }
+
+    static class Maquina {
+
+        private String nombre;
+        private String tipo;
+
+        public Maquina(String nombre, String tipo) {
+            this.nombre = nombre;
+            this.tipo = tipo;
+        }
+
+        public String getNombre() {
+            return nombre;
+        }
+
+        public String getTipo() {
+            return tipo;
+        }
+    }
+
+    static class Gimnasio {
 
         private List<Usuario> usuarios;
         private List<Rutina> rutinas;
         private List<Membresia> membresias;
+        private List<Coach> coaches;
 
         public Gimnasio() {
             this.usuarios = new ArrayList<>();
@@ -204,133 +270,42 @@ public class GymPoo {
         }
     }
 
-    class Coach extends Rutina {
+    public static void main(String[] args) {
+        Gimnasio gimnasio = new Gimnasio();
 
-        private String nombre;
-        public ArrayList<String> horario; // Cambio a ArrayList<String>
-        private double precio;
-        private String tipoEntrenamiento;
-        private Maquina maquinaAsociada;
+        // Crear usuario
+        List<String> preferencias = new ArrayList<>();
+        preferencias.add("Cardio");
+        preferencias.add("Yoga");
+        Usuario usuario = new Usuario("Juan", 30, 8, preferencias);
 
-        // Constructor
-        public Coach(String nombre, double precio, String tipoEntrenamiento) {
-            this.nombre = nombre;
-            this.precio = precio;
-            this.horario = new ArrayList<>(); // Inicializa la lista
-            this.tipoEntrenamiento = tipoEntrenamiento;
-            this.maquinaAsociada = asignarMaquina(tipoEntrenamiento);
-        }
+        // Registrar usuario
+        gimnasio.registrarUsuario(usuario);
 
-        private Maquina asignarMaquina(String tipoEntrenamiento) {
-            switch (tipoEntrenamiento.toLowerCase()) {
-                case "cardio":
-                    return new Maquina("Cinta de correr", "Cardio");
-                case "fuerza":
-                    return new Maquina("Banco de pesas", "Fuerza");
-                case "flexibilidad":
-                    return new Maquina("Máquina de estiramiento", "Flexibilidad");
-                default:
-                    return new Maquina("Máquina multifuncional", "General");
-            }
-        }
+        // Crear y agregar coaches
+        Coach simon = new Coach("Simon", 60.0, "Cardio");
+        Coach maria = new Coach("Maria", 55.0, "Fuerza");
+        gimnasio.agregarCoach(simon);
+        gimnasio.agregarCoach(maria);
 
-        public String getNombre() {
-            return nombre;
-        }
+        // Asignar coach a usuario
+        Coach coachAsignado = gimnasio.asignarCoach(usuario, "Simon");
 
-        public String getTipoEntrenamiento() {
-            return tipoEntrenamiento;
-        }
+        // Asignar rutina
+        Rutina rutina = gimnasio.asignarRutina(usuario);
+        System.out.println(rutina.mostrarRutina());
 
-        public Maquina getMaquinaAsociada() {
-            return maquinaAsociada;
-        }
+        // Crear membresía
+        Membresia membresia = new Membresia("Estándar", 50.0);
 
-        // Método para agregar un día al horario
-        public void agregarDia(String dia) {
-            horario.add(dia);
-        }
+        // Intentar procesar pago con presupuesto insuficiente
+        double presupuesto = 40.0;
+        double precioFinal = gimnasio.procesarPago(usuario, membresia, presupuesto);
 
-        // Método para mostrar el horario completo
-        public void mostrarHorario() {
-            System.out.println("Horario de " + nombre + ":");
-            for (String dia : horario) {
-                System.out.println(dia);
-            }
-        }
-
-        // Método principal para probar la clase Coach
-        public static void main(String[] args) {
-            Coach coach = new Coach("Sebastian", 50.0);
-
-            // Agregar días al horario
-            coach.agregarDia("Lunes");
-            coach.agregarDia("Miércoles");
-            coach.agregarDia("Viernes");
-
-            // Mostrar el horario del coach
-            coach.mostrarHorario();
-        }
-    }
-
-    class Maquina {
-
-        private String nombre;
-        private String tipo;
-
-        public Maquina(String nombre, String tipo) {
-            this.nombre = nombre;
-            this.tipo = tipo;
-        }
-
-        public String getNombre() {
-            return nombre;
-        }
-
-        public String getTipo() {
-            return tipo;
-        }
-    }
-
-    public class Main {
-
-        public static void main(String[] args) {
-            Gimnasio gimnasio = new Gimnasio();
-
-            // Crear usuario
-            List<String> preferencias = new ArrayList<>();
-            preferencias.add("Cardio");
-            preferencias.add("Yoga");
-            Usuario usuario = new Usuario("Juan", 30, 8, preferencias);
-
-            // Registrar usuario
-            gimnasio.registrarUsuario(usuario);
-
-            // Crear y agregar coaches
-            Coach simon = new Coach("Simon", 60.0, "Cardio");
-            Coach maria = new Coach("Maria", 55.0, "Fuerza");
-            gimnasio.agregarCoach(simon);
-            gimnasio.agregarCoach(maria);
-
-            // Asignar coach a usuario
-            Coach coachAsignado = gimnasio.asignarCoach(usuario, "Simon");
-
-            // Asignar rutina
-            Rutina rutina = gimnasio.asignarRutina(usuario);
-            System.out.println(rutina.mostrarRutina());
-
-            // Crear membresía
-            Membresia membresia = new Membresia("Estándar", 50.0);
-
-            // Intentar procesar pago con presupuesto insuficiente
-            double presupuesto = 40.0;
-            double precioFinal = gimnasio.procesarPago(usuario, membresia, presupuesto);
-
-            // Si el presupuesto es insuficiente, procesar pago con tarjeta de crédito
-            if (precioFinal == 0) {
-                TarjetaCredito tarjeta = new TarjetaCredito("1234-5678-9012-3456", "Juan Pérez", 1000.0);
-                gimnasio.procesarPagoConTarjeta(usuario, membresia, tarjeta, 3);
-            }
+        // Si el presupuesto es insuficiente, procesar pago con tarjeta de crédito
+        if (precioFinal == 0) {
+            TarjetaCredito tarjeta = new TarjetaCredito("1234-5678-9012-3456", "Juan Pérez", 1000.0);
+            gimnasio.procesarPagoConTarjeta(usuario, membresia, tarjeta, 3);
         }
     }
 }
