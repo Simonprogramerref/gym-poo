@@ -1,3 +1,4 @@
+
 package com.mycompany.gym.poo;
 
 import com.mycompany.gym.model.Usuario;
@@ -10,6 +11,7 @@ import com.mycompany.gym.service.Gimnasio;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+
 
 public class Main {
 
@@ -57,45 +59,34 @@ public class Main {
             }
         }
 
-        // Validación de disponibilidad horaria
+        System.out.println("═══════════════════════════════════════════════════\n");
+
+        // Validación de disponibilidad ECONÓMICA
         while (true) {
-            System.out.print("→ ¿Cuál es tu disponibilidad horaria? (horas disponibles para entrenar a la semana): ");
+            System.out.print("→ ¿Cuál es tu presupuesto? (para pagar la mensualidad del gym SAY): ");
             String input = scanner.nextLine();
 
-            if (input.matches("\\d+")) {
-                int disponibilidad = Integer.parseInt(input);
-                if (disponibilidad >= 0 && disponibilidad <= 168) {
-                    user1.setDisponibilidad(disponibilidad);
+            if (input.matches("\\d+")) { // Verifica que la entrada sea solo dígitos
+                int presupuesto = Integer.parseInt(input);
+                if (presupuesto >= 0) {
+                    user1.setDisponibilidad(presupuesto);
                     break;
                 } else {
-                    System.out.println(" Error: La disponibilidad debe ser un valor entre 0 y 168. Inténtalo de nuevo.");
+                    System.out.println("Error: El presupuesto debe ser un valor mayor o igual a cero.");
                 }
             } else {
-                System.out.println(" Error: Debes ingresar un número entero para la disponibilidad horaria.");
+                System.out.println("Error: Ingresa un valor numérico válido.");
             }
         }
 
-        // Mostrar preferencias disponibles
-        List<String> preferencias = new ArrayList<>();
-        preferencias.add("CARDIO");
-        preferencias.add("YOGA");
-        preferencias.add("FUERZA");
-        preferencias.add("ZUMBA");
-
-        System.out.println("\nPreferencias disponibles:");
-        System.out.println("──────────────────────────────");
-        for (int i = 0; i < preferencias.size(); i++) {
-            System.out.println((i + 1) + ". " + preferencias.get(i));
-        }
-
-        // Elegir membresía
-        Membresia superDeveloped = new Membresia("SUPERDELVELOPED", 100.0);
-        Membresia medioDevelop = new Membresia("MEDIODEVELOP", 75.0);
-        Membresia yoProgramando = new Membresia("YOPROGRAMANDO", 50.0);
+         // Membresías disponibles
+        Membresia superDeveloped = new Membresia("SUPERDEVELOPED", 500.0);
+        Membresia medioDevelop = new Membresia("MEDIODEVELOP", 200.0);
+        Membresia yoProgramando = new Membresia("YOPROGRAMANDO", 100.0);
 
         System.out.println("\nElige tu membresía:");
         System.out.println("──────────────────────────────");
-        System.out.println("1. SUPERDELVELOPED - Entrena todos los días de la semana, puede escoger a todos los coaches");
+        System.out.println("1. SUPERDEVELOPED - Entrena todos los días de la semana, puede escoger a todos los coaches");
         System.out.println("2. MEDIODEVELOP - Solo puede escoger 3 entrenadores y no entrena los fines de semana");
         System.out.println("3. YOPROGRAMANDO - Solo entrena 1 coach, no entrena los lunes, miércoles ni sábados");
 
@@ -116,12 +107,82 @@ public class Main {
                     seleccionada = yoProgramando;
                     break;
                 default:
-                    System.out.println(" Error: Opción inválida. Por favor, elige un número válido.");
+                    System.out.println("Error: Opción inválida. Por favor, elige un número válido.");
                     break;
             }
         }
 
         System.out.println("\nHas seleccionado la membresía: " + seleccionada.mostrarDetalles());
+
+        // Verificar si el presupuesto es suficiente
+        double presupuesto = user1.getDisponibilidad();
+        double precioFinal = seleccionada.getPrecioBase();
+
+        if (presupuesto < precioFinal) {
+            System.out.println("El presupuesto no es suficiente para pagar la membresía seleccionada.");
+            System.out.println("¿Tienes tarjeta de crédito? (escribe 'true' o 'false')");
+            String tarjetaInput = scanner.nextLine().trim().toLowerCase();
+            boolean tarjeta = tarjetaInput.equals("true");
+
+            if (!tarjeta) {
+                System.out.println("Lamentamos informarle que no podrá acceder a ninguna membresía.");
+                user1.setTarjeta(false);
+            } else {
+                System.out.println("Afortunadamente cuenta con una tarjeta que lo respalda para acceder a nuestros servicios.");
+                user1.setTarjeta(true);
+
+                System.out.print("¿De cuánto es el monto de su tarjeta de crédito? ");
+                double monto = scanner.nextDouble();
+                scanner.nextLine(); // Consumir el salto de línea
+
+                if (monto < precioFinal) {
+                    System.out.println("Lamentamos informarle que no podrá acceder a ninguna membresía.");
+                } else {
+                    // Procesar pago con tarjeta de crédito
+                    TarjetaCredito tarjetaCredito = new TarjetaCredito("1234-5678-9012-3456", "Nombre del Usuario", monto);
+                    gimnasio.procesarPagoConTarjeta(user1, seleccionada, tarjetaCredito, 3);
+                    System.out.println("¡Pago realizado con éxito!");
+                }
+            }
+        } else {
+            System.out.println("¡Con el presupuesto ingresado puedes pagar la membresía seleccionada!");
+            // Aquí puedes agregar la lógica para procesar el pago si es necesario
+        }
+        
+        
+        
+        System.out.print("Por lo tanto su valor final a pagar será de: " + precioFinal );
+        
+        System.out.println("\n Gracias, " + user1.getNombre() + " por la información");
+        System.out.println("═══════════════════════════════════════════════════");
+        System.out.println("Ahora vamos a lo más importante, tus entrenadores. ");
+        System.out.println("═══════════════════════════════════════════════════\n");
+        
+        // Mostrar preferencias disponibles
+        List<String> preferencias = new ArrayList<>();
+        preferencias.add("CARDIO");
+        preferencias.add("YOGA");
+        preferencias.add("FUERZA");
+        preferencias.add("ZUMBA");
+
+        //validar la preferencia 
+        while (true) {
+            System.out.println("──────────────────────────────");
+            System.out.println("Preferencias disponibles:" + "escoge una");
+
+            for (int i = 0; i < preferencias.size(); i++) {
+                System.out.println((i + 1) + ". " + preferencias.get(i));
+            }
+            String preferencia = scanner.nextLine();
+
+            if (preferencia.matches("[a-zA-Z_]+")) {
+                user1.setPreferencias(preferencias);
+                break;
+
+            } else {
+                System.out.println(" Error: Las preferencias debe contener solo caracteres alfabéticos.");
+            }
+        }
 
         // Registrar usuario
         gimnasio.registrarUsuario(user1);
@@ -133,30 +194,33 @@ public class Main {
 
         // Crear Coach y agregar un ejercicio a la rutina del usuario
         List<String> horarioCoach = new ArrayList<>();
+
         horarioCoach.add("Lunes");
         horarioCoach.add("Miércoles");
-        Coach coach = new Coach("Pedro", horarioCoach, 50.0, Coach.Especialidad.CARDIO, rutina.getEjercicios(), 45, "Media");
+
+        Coach Pedro = new Coach("Pedro", horarioCoach, 50.0, Coach.Especialidad.CARDIO, rutina.getEjercicios(), 45, "Media");
+        // Mostrar horario del coach PEDRO 
+        System.out.println("\nHorario del Coach " + Pedro.getNombre() + ":");
+        Pedro.mostrarHorario();
+
+        Coach Juanita = new Coach("Juanita", horarioCoach, 80.0, Coach.Especialidad.YOGA, rutina.getEjercicios(), 80, "Alta");
+        Juanita.agregarDia("Jueves");
+        Juanita.agregarDia("Sabado");
+        Juanita.agregarDia("Domingo");
 
         // Mostrar horario del coach
-        System.out.println("\nHorario del Coach " + coach.getNombre() + ":");
-        coach.mostrarHorario();
+        System.out.println("\nHorario del Coach " + Juanita.getNombre() + ":");
+        Juanita.mostrarHorario();
+
+        Juanita.quitarDia(Juanita.getHorario(), "Miércoles");
+        Juanita.mostrarHorario();
 
         // El coach añade un ejercicio a la rutina del usuario
-        coach.agregarEjercicioARutina(rutina, "Bicicleta");
+        Pedro.agregarEjercicioARutina(rutina, "Bicicleta");
 
         // Imprimir la rutina actualizada
         System.out.println("\nRutina actualizada:");
         System.out.println(rutina.mostrarRutina());
-
-        // Intentar procesar pago con presupuesto insuficiente
-        double presupuesto = 40.0;
-        double precioFinal = gimnasio.procesarPago(user1, seleccionada, presupuesto);
-
-        // Si el presupuesto es insuficiente, procesar pago con tarjeta de crédito
-        if (precioFinal == 0) {
-            TarjetaCredito tarjeta = new TarjetaCredito("1234-5678-9012-3456", "Juan Pérez", 1000.0);
-            gimnasio.procesarPagoConTarjeta(user1, seleccionada, tarjeta, 3);
-        }
 
         System.out.println("\n═══════════════════════════════════════════════════");
         System.out.println("                 ¡REGISTRO COMPLETADO!             ");

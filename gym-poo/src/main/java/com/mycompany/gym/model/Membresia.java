@@ -13,12 +13,19 @@ public class Membresia {
     public double calcularPrecio(Usuario usuario) {
         double precio = precioBase;
         if (usuario.getEdad() < 25 || usuario.getEdad() > 60) {
-            precio *= 0.9; // 10% de descuento
+            precio *= 0.01; // 10% de descuento
+            
+            
+            System.out.print("si usted está entre el rango de edad de los 25 a los 60, se le aplica un descuento del 10%");
+            System.out.println("Por lo anterior, le queda en: " + precio);
         }
-        if (usuario.getDisponibilidad() > 10) {
+        else {
             precio *= 1.1; // 10% de aumento para usuarios con alta disponibilidad
+            System.out.println("por estar tan disponible para el entrenamiento, la tarifa tiende a incrementar \n");
+            System.out.println("Por la alta disponibilidad le queda en: "+ precio);
         }
-        return precio;
+        
+        return precio; 
     }
 
     public String mostrarDetalles() {

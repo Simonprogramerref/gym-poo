@@ -21,18 +21,56 @@ public class Coach extends Rutina {
         this.especialidad = especialidad;
     }
 
-    public Especialidad getEspecialidad() {
-        return especialidad;
-    }
-
+    // GETTERS DE COACH 
     public String getNombre() {
         return nombre;
     }
 
+    public List<String> getHorario() {
+        return horario;
+    }
+
+    public double getPrecio() {
+        return precio;
+    }
+
+    public Especialidad getEspecialidad() {
+        return especialidad;
+    }
+
+    //STTERS DE COACH 
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public void setHorario(List<String> horario) {
+        this.horario = horario;
+    }
+
+    public void setPrecio(double precio) {
+        this.precio = precio;
+    }
+
+    public void setEspecialidad(Especialidad especialidad) {
+        this.especialidad = especialidad;
+    }
+    
+    
+
     public void agregarDia(String dia) {
         horario.add(dia);
     }
-
+    
+    public void quitarDia(List<String> horario, String dia) {
+        // recorremos la lista
+        for (int i = 0; i < horario.size(); i++) {
+            if (horario.get(i).equals(dia)) {
+                // Eliminar el día cuando se encuentra
+                horario.remove(i);
+                i--; }
+        }
+    }
+    
     public void mostrarHorario() {
         System.out.println("Horario de " + nombre + ":");
         for (String dia : horario) {
