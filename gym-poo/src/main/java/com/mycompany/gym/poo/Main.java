@@ -9,16 +9,83 @@ import com.mycompany.gym.service.Gimnasio;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class Main {
 
     public static void main(String[] args) {
         Gimnasio gimnasio = new Gimnasio();
 
-        // Crear usuario
+        //crear usuario por consola 
+        Scanner scanner = new Scanner(System.in);
+        Usuario user1 = new Usuario();
+
+        // Validacion de nombre
+        while (true) {
+            System.out.println("¿Cual es tu nombre?");
+            String nombre = scanner.nextLine();
+            if (nombre.matches("[a-zA-Z]+")) { // verificar que solo tiene caracteres
+                user1.setNombre(nombre);
+                break;
+            } else {
+                System.out.println("Error el nombre debe contener solo caracteres");
+            }
+        }
+
+        // Mensaje adicional
+        System.out.println("Gracias: " + user1.getNombre() + "\nAhora, te pedire informacion adicional:" + "\n----->");
+
+        // Validad edad 
+        while (true) {
+            System.out.println("¿Cual es tu edad");
+            if (scanner.hasNextInt()) {
+                int edad = scanner.nextInt();
+                if (edad >= 0 && edad <= 120) {
+                    user1.setEdad(edad);
+                    break;
+                } else {
+                    System.out.println("Error: La edad debe ser un valor entre 0 y 120. Intentalo de nuevo. ");
+                }
+            } else {
+                System.out.println("Error: Debes ingresar un numero entero para la edad");
+                scanner.next();
+            }
+        }
+
+        scanner.nextLine();
+
+        // Validar disponibilidad horaria
+        while (true) {
+            System.out.println("¿Cuál es tu disponibilidad horaria? Refiríendome a las horas disponibles para entrenar");
+            if (scanner.hasNextInt()) {
+                int disponibilidad = scanner.nextInt();
+                if (disponibilidad >= 0 && disponibilidad <= 168) { // Considerar el rango de horas en una semana
+                    user1.setDisponibilidad(disponibilidad);
+                    break; // Salir del bucle si la disponibilidad es válida
+                } else {
+                    System.out.println("Error: La disponibilidad debe ser un valor entre 0 y 168. Inténtalo de nuevo.");
+                }
+            } else {
+                System.out.println("Error: Debes ingresar un número entero para la disponibilidadd.");
+                scanner.next();
+            }
+        }
+        scanner.nextLine();
+
         List<String> preferencias = new ArrayList<>();
+
         preferencias.add("CARDIO");
         preferencias.add("YOGA");
+        preferencias.add("FUERZA");
+        preferencias.add("ZUMBA");
+
+        //Mostrar preferencias
+        System.out.println("Preferencias disponibles:");
+        for (String preferencia : preferencias) {
+            System.out.println(preferencia);
+        }
+
+        // Crear usuario
         Usuario usuario = new Usuario("Juan", 30, 8, preferencias);
 
         // Registrar usuario
