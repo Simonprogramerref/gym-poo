@@ -1,6 +1,7 @@
 package com.mycompany.gym.model;
 
 public class TarjetaCredito {
+
     private String numero;
     private String titular;
     private double limite;

@@ -3,6 +3,7 @@ package com.mycompany.gym.model;
 import java.util.List;
 
 public class Coach extends Rutina {
+
     private String nombre;
     private List<String> horario;
     private double precio;

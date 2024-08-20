@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Gimnasio {
+
     private List<Usuario> usuarios;
     private List<Rutina> rutinas;
     private List<Membresia> membresias;

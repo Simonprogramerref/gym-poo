@@ -3,6 +3,7 @@ package com.mycompany.gym.model;
 import java.util.List;
 
 public class Usuario {
+
     private String nombre;
     private int edad;
     private int disponibilidad;

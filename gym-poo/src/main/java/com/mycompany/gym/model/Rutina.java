@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Rutina {
+
     private List<String> ejercicios;
     private int duracion;
     private String intensidad;

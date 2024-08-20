@@ -1,6 +1,7 @@
 package com.mycompany.gym.model;
 
 public class Membresia {
+
     private String tipo;
     private double precioBase;
 
