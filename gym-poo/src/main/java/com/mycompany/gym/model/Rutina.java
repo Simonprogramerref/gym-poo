@@ -1,7 +1,9 @@
 package com.mycompany.gym.model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Rutina {
 
@@ -9,34 +11,38 @@ public class Rutina {
     private int duracion;
     private String intensidad;
 
+    private static final Map<Integer, Rutina> RUTINAS_POR_DISPONIBILIDAD = new HashMap<>();
+
+    static {
+        RUTINAS_POR_DISPONIBILIDAD.put(0, new Rutina(List.of("Caminata", "Estiramientos"), 30, "Baja"));
+        RUTINAS_POR_DISPONIBILIDAD.put(5, new Rutina(List.of("Trote", "Pesas ligeras"), 45, "Media"));
+        RUTINAS_POR_DISPONIBILIDAD.put(10, new Rutina(List.of("Carrera", "Pesas pesadas"), 60, "Alta"));
+    }
+
     public Rutina(List<String> ejercicios, int duracion, String intensidad) {
-        this.ejercicios = ejercicios;
+        this.ejercicios = new ArrayList<>(ejercicios);
         this.duracion = duracion;
         this.intensidad = intensidad;
     }
 
     public void generarRutina(Usuario usuario) {
-        this.ejercicios = new ArrayList<>();
-        if (usuario.getDisponibilidad() < 5) {
-            this.duracion = 30;
-            this.intensidad = "Baja";
-            this.ejercicios.add("Caminata");
-            this.ejercicios.add("Estiramientos");
-        } else if (usuario.getDisponibilidad() < 10) {
-            this.duracion = 45;
-            this.intensidad = "Media";
-            this.ejercicios.add("Trote");
-            this.ejercicios.add("Pesas ligeras");
-        } else {
-            this.duracion = 60;
-            this.intensidad = "Alta";
-            this.ejercicios.add("Carrera");
-            this.ejercicios.add("Pesas pesadas");
-        }
+        Rutina rutina = RUTINAS_POR_DISPONIBILIDAD.entrySet().stream()
+                .filter(entry -> usuario.getDisponibilidad() >= entry.getKey())
+                .map(Map.Entry::getValue)
+                .findFirst()
+                .orElse(RUTINAS_POR_DISPONIBILIDAD.get(0));
+
+        this.ejercicios = new ArrayList<>(rutina.getEjercicios());
+        this.duracion = rutina.getDuracion();
+        this.intensidad = rutina.getIntensidad();
     }
 
     public void agregarEjercicio(String ejercicio) {
         ejercicios.add(ejercicio);
+    }
+
+    public void setEjercicios(List<String> ejercicios) {
+        this.ejercicios = ejercicios;
     }
 
     public String mostrarRutina() {
@@ -44,6 +50,14 @@ public class Rutina {
     }
 
     public List<String> getEjercicios() {
-        return ejercicios;
+        return new ArrayList<>(ejercicios);
+    }
+
+    public int getDuracion() {
+        return duracion;
+    }
+
+    public String getIntensidad() {
+        return intensidad;
     }
 }

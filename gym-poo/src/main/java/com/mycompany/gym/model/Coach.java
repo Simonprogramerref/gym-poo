@@ -44,9 +44,7 @@ public class Coach extends Rutina {
         this.especialidad = especialidad;
         this.mediaJornada = mediaJornada; 
         this.jornadaCompleta = jornadaCompleta;
-        
     }
-     
 
     // GETTERS
     public String getNombre() {
@@ -123,45 +121,21 @@ public class Coach extends Rutina {
             }
         }
     }
-    
-    //creamos una función para que el horario de los coaches nos imprima los días que están disponibles
-    public void horarioCompleto(List<String> horario, String nombre) {
-        System.out.println(getNombre() + " está disponible a jornada completa o parcial los días:   ");
 
-        List<String> mediaJornada = new ArrayList<>();
-        List<String> jornadaCompleta = new ArrayList<>();
-
-        for (int i = 0; i < horario.size(); i++) {
-            String dia = horario.get(i);
-
-            if (dia.contains("AM") || dia.contains("PM")) {
-                // Quitar "AM" o "PM"
-                dia = dia.replace("AM", "").replace("PM", "").trim();
-                mediaJornada.add(dia);
-                System.out.println(dia + " - Media Jornada");
-            } else {
-                jornadaCompleta.add(dia);
-                System.out.println(dia + " - Jornada Completa");
-            }
-        }
-    }
-
-
-        public void mostrarHorario(){
+    // Método simplificado para mostrar el horario del coach
+    public void mostrarHorario() {
         System.out.println("Horario de " + nombre + ":");
         for (String dia : horario) {
-            System.out.println(dia);
+            String turno = dia.contains("AM") ? "Media Jornada" : "Jornada Completa";
+            System.out.println(dia.replace("AM", "").replace("PM", "") + " - " + turno);
         }
     }
+
     public void agregarEjercicioARutina(Rutina rutina, String ejercicio) {
-        rutina.agregarEjercicio(ejercicio);
-        System.out.println("Ejercicio " + ejercicio + " añadido a la rutina de " + rutina.getEjercicios());
+        List<String> nuevosEjercicios = new ArrayList<>(rutina.getEjercicios());
+        nuevosEjercicios.add(ejercicio);
+        rutina.setEjercicios(nuevosEjercicios);
+        System.out.println("Ejercicio " + ejercicio + " añadido a la rutina.");
+        System.out.println("Rutina actualizada: " + rutina.mostrarRutina());
     }
-    
-
-
-
-
-    }
-    
-       
+}

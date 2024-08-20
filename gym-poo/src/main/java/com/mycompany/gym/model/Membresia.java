@@ -17,19 +17,29 @@ public class Membresia {
     }
 
     public double calcularPrecio(Usuario usuario) {
+        double precio = aplicarDescuentoPorEdad(usuario);
+        return aplicarAumentoAltoPresupuesto(usuario, precio);
+    }
+
+    private double aplicarDescuentoPorEdad(Usuario usuario) {
         double precio = precioBase;
         if (usuario.getEdad() < 25 || usuario.getEdad() > 60) {
             precio *= 0.9; // 10% de descuento
-            
             System.out.print("Si usted está fuera del rango de edad de 25 a 60, se le aplica un descuento del 10%");
             System.out.println("Por lo anterior, le queda en: " + formatoMoneda.format(precio));
         } else {
+            return precioBase;
+        }
+        return precio;
+    }
+
+    private double aplicarAumentoAltoPresupuesto(Usuario usuario, double precio) {
+        if (usuario.getDisponibilidad() >= 10) {
             precio *= 1.1; // 10% de aumento para usuarios con alta disponibilidad
             System.out.println("Por estar tan disponible para el entrenamiento, la tarifa tiende a incrementar \n");
             System.out.println("Por la alta disponibilidad le queda en: " + formatoMoneda.format(precio));
         }
-        
-        return precio; 
+        return precio;
     }
 
     public String mostrarDetalles() {
@@ -43,7 +53,6 @@ public class Membresia {
     public String getTipo() {
         return tipo;
     }
-    
 
     // Métodos específicos para cada tipo de membresía
     public boolean puedeEntrenar(String dia, int coachPermitidos) {

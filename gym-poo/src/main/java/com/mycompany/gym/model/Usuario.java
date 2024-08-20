@@ -1,6 +1,7 @@
 package com.mycompany.gym.model;
 
 import java.util.List;
+import java.util.regex.Pattern;
 
 public class Usuario extends TarjetaCredito{
 
@@ -12,7 +13,6 @@ public class Usuario extends TarjetaCredito{
     public boolean tarjeta; 
     private String membresiaUsuario;
     
-    
     public Usuario(){ }
 
     public Usuario(String nombre, int edad, int disponibilidad, List<String> preferencias, double presupuesto) {
@@ -22,9 +22,6 @@ public class Usuario extends TarjetaCredito{
         this.preferencias = preferencias;
         this.presupuesto = presupuesto; 
     }
-    
-    
-    
 
     //getters
     public String getNombre() {
@@ -51,13 +48,13 @@ public class Usuario extends TarjetaCredito{
         return membresiaUsuario;
     }
 
-    
-    
-    
     //Setters
-
     public void setNombre(String nombre) {
-        this.nombre = nombre;
+        if (Pattern.matches("[a-zA-Z]+", nombre)) {
+            this.nombre = nombre;
+        } else {
+            System.out.println("Error: El nombre debe contener solo caracteres alfabéticos.");
+        }
     }
 
     public void setEdad(int edad) {
@@ -79,21 +76,6 @@ public class Usuario extends TarjetaCredito{
     public void setMembresiaUsuario(String membresiaUsuario) {
         this.membresiaUsuario = membresiaUsuario;
     }
-    
-    
-    
-    
-    
-    
-
-    public void asignarCoach(Coach coach) {
-        if (this.preferencias.contains(coach.getEspecialidad().name())) {
-            System.out.println("Señor/Señora " + this.nombre + ", se le ha asignado el coach " + coach.getNombre()
-                    + " con especialidad en " + coach.getEspecialidad());
-        } else {
-            System.out.println("No se encontró un coach que coincida con las preferencias de " + this.nombre);
-        }
-    }
 
     public void setTarjeta(boolean tarjeta) {
         this.tarjeta = tarjeta;
@@ -103,5 +85,29 @@ public class Usuario extends TarjetaCredito{
         return tarjeta;
     }
 
-    
+    public void asignarCoach(Coach coach) {
+        if (this.preferencias.contains(coach.getEspecialidad().name())) {
+            System.out.println("Señor/Señora " + this.nombre + ", se le ha asignado el coach " + coach.getNombre()
+                    + " con especialidad en " + coach.getEspecialidad());
+        } else {
+            System.out.println("No se encontró un coach que coincida con las preferencias de " + this.nombre);
+            // Buscar un coach que se ajuste mejor a las preferencias del usuario
+            List<Coach.Especialidad> especialidadesPreferidas = this.preferencias.stream()
+                    .map(Coach.Especialidad::valueOf)
+                    .toList();
+            Coach coachSugerido = getCoachRecomendado(especialidadesPreferidas);
+            if (coachSugerido != null) {
+                System.out.println("Sin embargo, se le ha asignado el coach " + coachSugerido.getNombre()
+                        + " con especialidad en " + coachSugerido.getEspecialidad());
+            } else {
+                System.out.println("No se encontró un coach adecuado para sus preferencias.");
+            }
+        }
+    }
+
+    private Coach getCoachRecomendado(List<Coach.Especialidad> especialidadesPreferidas) {
+        // Lógica para buscar y devolver el coach más adecuado
+        // Implementación específica de la estrategia de recomendación
+        return null;
+    }
 }

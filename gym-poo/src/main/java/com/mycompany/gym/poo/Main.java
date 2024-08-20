@@ -123,7 +123,7 @@ public class Main {
         System.out.println("\nHas seleccionado la membresía: " + seleccionada.mostrarDetalles());
 
         // Verificar si el presupuesto es suficiente
-        double precioFinal = seleccionada.getPrecioBase();
+        double precioFinal = seleccionada.calcularPrecio(user1);
 
         if (presupuesto < precioFinal) {
             System.out.println("El presupuesto no es suficiente para pagar la membresía seleccionada.");
@@ -151,7 +151,6 @@ public class Main {
             }
         } else {
             System.out.println("¡Con el presupuesto ingresado puedes pagar la membresía seleccionada!");
-
         }
 
         //guardamos en en usuario el tipo de membresia que quería 
@@ -170,7 +169,6 @@ public class Main {
             System.out.println("Usted puede entrenar todos los días, ahorita a la hora de escoger horario, puede hacerlo a diario");
             System.out.println("Así mismo, usted podría escoger a todos los coachs");
             System.out.println("Recuerda que tu prefrencia fue" + "");
-
         }
 
         // Mostrar preferencias disponibles
@@ -249,5 +247,29 @@ public class Main {
         System.out.println("\n═══════════════════════════════════════════════════");
         System.out.println("                 ¡REGISTRO COMPLETADO!             ");
         System.out.println("═══════════════════════════════════════════════════");
+    }
+
+    // Método para validar la edad
+    private static int validarEdad(Scanner scanner) {
+        while (true) {
+            System.out.print("→ ¿Cuál es tu edad?: ");
+            String input = scanner.nextLine();
+
+            if (input.matches("\\d+")) {
+                int edad = Integer.parseInt(input);
+                if (edad >= 0 && edad <= 50) {
+                    return edad;
+                } else {
+                    System.out.println(" Error: La edad debe ser un valor entre 0 y 50. Inténtalo de nuevo.");
+                }
+            } else {
+                System.out.println(" Error: Debes ingresar un número entero para la edad.");
+            }
+        }
+    }
+
+    // Método para manejar el caso cuando el usuario no tiene suficiente presupuesto y no tiene tarjeta de crédito
+    private static void gestionarSinPresupuestoYTarjeta() {
+        System.out.println("Lamentamos informarle que no podrá acceder a ninguna membresía.");
     }
 }
