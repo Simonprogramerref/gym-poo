@@ -27,6 +27,14 @@ public class GymPoo {
     public int getEdad() { return edad; }
     public int getDisponibilidad() { return disponibilidad; }
     public List<String> getPreferencias() { return preferencias; }
+    
+    //creamos una funcion para asignar Coach
+    
+    public void asignarCoach(Usuario.getPreferencias, Usuario.getNombre, Coach.Especialidad){
+        if Usuario.getPreferencias().equalsignoreCase(Coach.Especialidad){
+            println("señor/señora" + )
+        }
+        
 }
 
 class Rutina {
@@ -164,14 +172,36 @@ class Coach extends Rutina {
     private String nombre;
     public ArrayList<String> horario; // Cambio a ArrayList<String>
     private double precio;
+    private Especialidad especialidad; 
+    
+    
+    public enum Especialidad{
+        Cardio;
+        Yoga;
+        Zumba;
+        Fuerza;
+    }
+           
+    // Coach Jorge_coach = Coach(
 
     // Constructor
-    public Coach(String nombre, double precio) {
-        this.nombre = nombre;
-        this.precio = precio;
-        this.horario = new ArrayList<>(); // Inicializa la lista
-    }
 
+        public Coach(String nombre, <any> horario, double precio, Especialidad especialidad, <any> ejercicios, int duracion, String intensidad) {
+            super(ejercicios, duracion, intensidad);
+            this.nombre = nombre;
+            this.horario = horario;
+            this.precio = precio;
+            this.especialidad = especialidad;
+        }
+    
+    }
+// creo un geter para especialidad
+
+        public Especialidad getEspecialidad() {
+            return especialidad;
+        }
+    
+    
     // Método para agregar un día al horario
     public void agregarDia(String dia) {
         horario.add(dia);
@@ -197,7 +227,7 @@ class Coach extends Rutina {
         // Mostrar el horario del coach
         coach.mostrarHorario();
     }
-}
+    }
 
 public class Main {
     public static void main(String[] args) {
