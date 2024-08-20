@@ -87,10 +87,10 @@ public class Main {
             }
         }
 
-        // Membresías disponibles
-        Membresia superDeveloped = new Membresia("SUPERDEVELOPED", 500.0);
-        Membresia medioDevelop = new Membresia("MEDIODEVELOP", 200.0);
-        Membresia yoProgramando = new Membresia("YOPROGRAMANDO", 100.0);
+        // Membresías disponibles con precios en pesos colombianos
+        Membresia superDeveloped = new Membresia("SUPERDEVELOPED", 300000.0);
+        Membresia medioDevelop = new Membresia("MEDIODEVELOP", 150000.0);
+        Membresia yoProgramando = new Membresia("YOPROGRAMANDO", 89900.0);
 
         System.out.println("\nElige tu membresía:");
         System.out.println("──────────────────────────────");
@@ -121,6 +121,7 @@ public class Main {
         }
 
         System.out.println("\nHas seleccionado la membresía: " + seleccionada.mostrarDetalles());
+        System.out.println("Precio de la membresía: " + formatoMoneda.format(seleccionada.getPrecioBase()));
 
         // Verificar si el presupuesto es suficiente
         double precioFinal = seleccionada.getPrecioBase();
@@ -167,7 +168,7 @@ public class Main {
         preferencias.add("FUERZA");
         preferencias.add("ZUMBA");
 
-        //validar la preferencia 
+        // Validar la preferencia 
         while (true) {
             System.out.println("──────────────────────────────");
             System.out.println("Preferencias disponibles: escoge una");
