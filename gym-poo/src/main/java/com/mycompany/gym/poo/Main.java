@@ -66,7 +66,7 @@ public class Main {
                     System.out.println("Error: La disponibilidad debe ser un valor entre 0 y 168. Inténtalo de nuevo.");
                 }
             } else {
-                System.out.println("Error: Debes ingresar un número entero para la disponibilidad.");
+                System.out.println("Error: Debes ingresar un número entero para la disponibilidadd.");
                 scanner.next();
             }
         }
@@ -78,13 +78,13 @@ public class Main {
         preferencias.add("YOGA");
         preferencias.add("FUERZA");
         preferencias.add("ZUMBA");
-        
+
         //Mostrar preferencias
         System.out.println("Preferencias disponibles:");
-        for (String preferencia: preferencias) {
+        for (String preferencia : preferencias) {
             System.out.println(preferencia);
         }
-        
+
         // Crear usuario
         Usuario usuario = new Usuario("Juan", 30, 8, preferencias);
 
