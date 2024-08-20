@@ -16,62 +16,69 @@ public class Main {
     public static void main(String[] args) {
         Gimnasio gimnasio = new Gimnasio();
 
-        //crear usuario por consola 
+        // Crear usuario por consola 
         Scanner scanner = new Scanner(System.in);
         Usuario user1 = new Usuario();
 
-        // Validacion de nombre
+        System.out.println("═══════════════════════════════════════════════════");
+        System.out.println("             BIENVENIDO AL GIMNASIO                ");
+        System.out.println("═══════════════════════════════════════════════════");
+
+        // Validación de nombre
         while (true) {
-            System.out.println("¿Cual es tu nombre?");
+            System.out.print("→ ¿Cuál es tu nombre?: ");
             String nombre = scanner.nextLine();
-            if (nombre.matches("[a-zA-Z]+")) { // verificar que solo tiene caracteres
+            if (nombre.matches("[a-zA-Z]+")) {
                 user1.setNombre(nombre);
                 break;
             } else {
-                System.out.println("Error el nombre debe contener solo caracteres");
+                System.out.println(" Error: El nombre debe contener solo caracteres alfabéticos.");
             }
         }
 
-        // Mensaje adicional
-        System.out.println("Gracias: " + user1.getNombre() + "\nAhora, te pedire informacion adicional:" + "\n----->");
+        System.out.println("\n Gracias, " + user1.getNombre() + ".");
+        System.out.println("═══════════════════════════════════════════════════");
+        System.out.println("Te pediré información adicional para completar tu registro.");
+        System.out.println("═══════════════════════════════════════════════════\n");
 
-        // Validad edad 
+        // Validación de edad
         while (true) {
-            System.out.println("¿Cual es tu edad");
-            if (scanner.hasNextInt()) {
-                int edad = scanner.nextInt();
-                if (edad >= 0 && edad <= 120) {
+            System.out.print("→ ¿Cuál es tu edad?: ");
+            String input = scanner.nextLine();
+
+            if (input.matches("\\d+")) {
+                int edad = Integer.parseInt(input);
+                if (edad >= 0 && edad <= 50) {
                     user1.setEdad(edad);
                     break;
                 } else {
-                    System.out.println("Error: La edad debe ser un valor entre 0 y 120. Intentalo de nuevo. ");
+                    System.out.println(" Error: La edad debe ser un valor entre 0 y 50. Inténtalo de nuevo.");
                 }
             } else {
-                System.out.println("Error: Debes ingresar un numero entero para la edad");
-                scanner.next();
+                System.out.println(" Error: Debes ingresar un número entero para la edad.");
             }
         }
 
-        scanner.nextLine();
-
-        // Validar disponibilidad horaria
+        // Validación de disponibilidad horaria
         while (true) {
-            System.out.println("¿Cuál es tu disponibilidad horaria? Refiríendome a las horas disponibles para entrenar");
-            if (scanner.hasNextInt()) {
-                int disponibilidad = scanner.nextInt();
-                if (disponibilidad >= 0 && disponibilidad <= 168) { // Considerar el rango de horas en una semana
+            System.out.print("→ ¿Cuál es tu disponibilidad horaria? (horas disponibles para entrenar a la semana): ");
+            String input = scanner.nextLine();
+
+            if (input.matches("\\d+")) {
+                int disponibilidad = Integer.parseInt(input);
+                if (disponibilidad >= 0 && disponibilidad <= 168) {
                     user1.setDisponibilidad(disponibilidad);
-                    break; // Salir del bucle si la disponibilidad es válida
+                    break;
                 } else {
-                    System.out.println("Error: La disponibilidad debe ser un valor entre 0 y 168. Inténtalo de nuevo.");
+                    System.out.println(" Error: La disponibilidad debe ser un valor entre 0 y 168. Inténtalo de nuevo.");
                 }
             } else {
-                System.out.println("Error: Debes ingresar un número entero para la disponibilidadd.");
-                scanner.next();
+                System.out.println(" Error: Debes ingresar un número entero para la disponibilidad horaria.");
             }
         }
-        scanner.nextLine();
 
+        // Mostrar preferencias disponibles
+        System.out.print("---------->\nAhora necesitamos que nos hables de tus preferencias.\n");
         List<String> preferencias = new ArrayList<>();
 
         preferencias.add("CARDIO");
@@ -79,10 +86,12 @@ public class Main {
         preferencias.add("FUERZA");
         preferencias.add("ZUMBA");
 
-        //Mostrar preferencias
-        System.out.println("Preferencias disponibles:");
-        for (String preferencia : preferencias) {
-            System.out.println(preferencia);
+        System.out.println("\nPreferencias disponibles:");
+        System.out.println("──────────────────────────────");
+        int tamaño = preferencias.size();
+        for (int i = 0; i < tamaño; i++) {
+            // Imprimir el número y la preferencia
+            System.out.println((i + 1) + ". " + preferencias.get(i));
         }
 
         // Crear usuario
@@ -93,6 +102,7 @@ public class Main {
 
         // Asignar rutina
         Rutina rutina = gimnasio.asignarRutina(usuario);
+        System.out.println("\nRutina asignada:");
         System.out.println(rutina.mostrarRutina());
 
         // Crear Coach y agregar un ejercicio a la rutina del usuario
@@ -102,12 +112,14 @@ public class Main {
         Coach coach = new Coach("Pedro", horarioCoach, 50.0, Coach.Especialidad.CARDIO, rutina.getEjercicios(), 45, "Media");
 
         // Mostrar horario del coach
+        System.out.println("\nHorario del Coach " + coach.getNombre() + ":");
         coach.mostrarHorario();
 
         // El coach añade un ejercicio a la rutina del usuario
         coach.agregarEjercicioARutina(rutina, "Bicicleta");
 
         // Imprimir la rutina actualizada
+        System.out.println("\nRutina actualizada:");
         System.out.println(rutina.mostrarRutina());
 
         // Crear membresía
@@ -122,5 +134,9 @@ public class Main {
             TarjetaCredito tarjeta = new TarjetaCredito("1234-5678-9012-3456", "Juan Pérez", 1000.0);
             gimnasio.procesarPagoConTarjeta(usuario, membresia, tarjeta, 3);
         }
+
+        System.out.println("\n═══════════════════════════════════════════════════");
+        System.out.println("                 ¡REGISTRO COMPLETADO!             ");
+        System.out.println("═══════════════════════════════════════════════════");
     }
 }
