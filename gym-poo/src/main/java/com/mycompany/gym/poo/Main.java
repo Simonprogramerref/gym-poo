@@ -78,7 +78,9 @@ public class Main {
         }
 
         // Mostrar preferencias disponibles
+        System.out.print("---------->\nAhora necesitamos que nos hables de tus preferencias.\n");
         List<String> preferencias = new ArrayList<>();
+
         preferencias.add("CARDIO");
         preferencias.add("YOGA");
         preferencias.add("FUERZA");
@@ -86,8 +88,10 @@ public class Main {
 
         System.out.println("\nPreferencias disponibles:");
         System.out.println("──────────────────────────────");
-        for (String preferencia : preferencias) {
-            System.out.println("• " + preferencia);
+        int tamaño = preferencias.size();
+        for (int i = 0; i < tamaño; i++) {
+            // Imprimir el número y la preferencia
+            System.out.println((i + 1) + ". " + preferencias.get(i));
         }
 
         // Crear usuario
