@@ -1,5 +1,6 @@
 package com.mycompany.gym.model;
 
+
 import java.util.List;
 
 public class Usuario extends TarjetaCredito{
@@ -11,6 +12,7 @@ public class Usuario extends TarjetaCredito{
     private double presupuesto; 
     public boolean tarjeta; 
     private String membresiaUsuario;
+    public String coachUser; 
     
     
     public Usuario(){ }
@@ -78,6 +80,14 @@ public class Usuario extends TarjetaCredito{
 
     public void setMembresiaUsuario(String membresiaUsuario) {
         this.membresiaUsuario = membresiaUsuario;
+    }
+
+    public String getCoachUser() {
+        return coachUser;
+    }
+
+    public void setCoachUser(String coachUser) {
+        this.coachUser = coachUser;
     }
     
     

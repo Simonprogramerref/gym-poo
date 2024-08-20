@@ -14,16 +14,23 @@ public class Gimnasio {
     private List<Usuario> usuarios;
     private List<Rutina> rutinas;
     private List<Membresia> membresias;
+    private List<Coach> coaches;
 
     public Gimnasio() {
         this.usuarios = new ArrayList<>();
         this.rutinas = new ArrayList<>();
         this.membresias = new ArrayList<>();
+        this.coaches = new ArrayList<>();
     }
 
     public void registrarUsuario(Usuario usuario) {
         usuarios.add(usuario);
     }
+    
+    public void registarCoach(Coach coach){
+        coaches.add(coach);
+    }
+
 
     public Rutina asignarRutina(Usuario usuario) {
         Rutina rutina = new Rutina(new ArrayList<>(), 0, "");

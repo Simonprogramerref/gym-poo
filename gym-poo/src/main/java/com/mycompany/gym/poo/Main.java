@@ -173,25 +173,21 @@ public class Main {
         {
             System.out.println("Usted puede entrenar todos los días, ahorita a la hora de escoger horario, puede hacerlo a diario");
             System.out.println("Así mismo, usted podría escoger a todos los coachs");
-            System.out.println("Recuerda que tu prefrencia fue" + "");
-            
-            
-        
-    }
-        
-        
-
-        // Mostrar preferencias disponibles
+                    // Mostrar preferencias disponible
+                    
+                    
         List<String> preferencias = new ArrayList<>();
         preferencias.add("CARDIO");
         preferencias.add("YOGA");
         preferencias.add("FUERZA");
         preferencias.add("ZUMBA");
+        
+        
 
         //validar la preferencia 
         while (true) {
             System.out.println("──────────────────────────────");
-            System.out.println("Preferencias disponibles: escoge una escribiendo el número correspondiente a tu preferencia");
+            System.out.println("Ahora debes escoger entre las preferencias: escoge una escribiendo el número correspondiente a tu preferencia");
 
             for (int i = 0; i < preferencias.size(); i++) {
                 System.out.println((i + 1) + ". " + preferencias.get(i));
@@ -206,6 +202,39 @@ public class Main {
                 System.out.println("Error: Selecciona un número válido de la lista de preferencias.");
             }
         }
+        
+        // hacemos un ciclo para que la preferencia sea igualada a la especialidad del coach 
+        
+        if (user1.getPreferencias().equals("CARDIO")){
+            System.out.print("Su mejor opción es ir con: " + "PEDRO");
+            System.out.print("¿Quiere que sea su entrenador principal?");
+            String respuesta = scanner.nextLine();
+            
+            if (respuesta.equals("si") || respuesta.equals("Si") || respuesta.equals("SI") || respuesta.equals("SÍ") ){
+                user1.setCoachUser("Pedro"); }
+            
+            else {
+                System.out.print("Deberá usted escoger entre: " + "Juanita" + "o" + "Byron" + "o" + "Juan" );
+            }
+        }
+        
+        if (user1.getPreferencias().equals("YOGA")){
+            System.out.print("Su mejor opción es ir con: " + "YOGA");
+            System.out.print("¿Quiere que sea su entrenador principal?");
+            String respuesta = scanner.nextLine();
+            
+            if (respuesta.equals("si") || respuesta.equals("Si") || respuesta.equals("SI") || respuesta.equals("SÍ") ){
+                user1.setCoachUser("Juanita"); }
+            
+            else {
+                System.out.print("Deberá usted escoger entre: " + "Pedro" + "o" + "Byron" + "o" + "Juan" );
+            }
+        }
+        
+        
+       
+            System.out.println("Recuerda que tu prefrencia fue" + user1.getPreferencias() + "y el más experimentado en esta área es" + "");
+        }
 
         // Registrar usuario
         gimnasio.registrarUsuario(user1);
@@ -217,11 +246,15 @@ public class Main {
 
         // Crear Coach y agregar un ejercicio a la rutina del usuario
         List<String> horarioCoach = new ArrayList<>();
-     
         
         
-
+        
+        
+        
         Coach Pedro = new Coach("Pedro", horarioCoach, 50.0, Coach.Especialidad.CARDIO, rutina.getEjercicios(), 60, "Media");
+        //registro a mis coaches en la base de datos (gym)
+        gimnasio.registarCoach(Pedro);
+        
         // Mostrar horario del coach PEDRO 
         //System.out.println("\nHorario del Coach " + Pedro.getNombre() + ":");
         
@@ -234,6 +267,7 @@ public class Main {
         //Pedro.horarioCompleto(Pedro.getHorario(), Pedro.getNombre());
 
         Coach Juanita = new Coach("Juanita", horarioCoach, 80.0, Coach.Especialidad.YOGA, rutina.getEjercicios(), 66, "Alta");
+        gimnasio.registarCoach(Juanita);
         Juanita.getHorario().set(3, "Jueves PM");
         Juanita.getHorario().set(5, "Sábado AM");
         Juanita.getHorario().set(6, "Domingo PM");
@@ -242,11 +276,12 @@ public class Main {
   
         
         Coach Byron = new Coach("Byron", horarioCoach, 200.0, Coach.Especialidad.FUERZA, rutina.getEjercicios(), 72, "Máxima");
-        Byron.getHorario().set(0, "Lunes PM");
+        gimnasio.registarCoach(Byron);
         Byron.getHorario().set(6, "Domingo AM");
         //Byron.horarioCompleto(Byron.getHorario(), Byron.getNombre());
         
         Coach Juan = new Coach("Juan", horarioCoach, 30.0, Coach.Especialidad.ZUMBA, rutina.getEjercicios(), 48, "Mínima");
+        gimnasio.registarCoach(Juan);
         Juan.quitarDia("Lunes");
         Juan.getHorario().set(3, "Martes AM");
         Juan.getHorario().set(4, "Miercoles PM");
