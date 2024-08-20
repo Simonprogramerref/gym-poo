@@ -170,9 +170,16 @@ public class Main {
         
         System.out.println("\n Ahora que ya sabemos que tu membresia es " + user1.getMembresiaUsuario() + " te daremos más información acorde a esta: ");
             if (user1.getMembresiaUsuario().equals("SUPERDEVELOPED"))
-        {
+            {
             System.out.println("Usted puede entrenar todos los días, ahorita a la hora de escoger horario, puede hacerlo a diario");
-            System.out.println("Así mismo, usted podría escoger a todos los coachs");
+            System.out.println("Así mismo, usted podría escoger a todos los coachs, es decir:");
+            
+            System.out.print("Los desea escoger a todos?");
+            
+           
+            }
+            
+        
                     // Mostrar preferencias disponible
                     
                     
@@ -234,7 +241,7 @@ public class Main {
         
        
             System.out.println("Recuerda que tu prefrencia fue" + user1.getPreferencias() + "y el más experimentado en esta área es" + "");
-        }
+            
 
         // Registrar usuario
         gimnasio.registrarUsuario(user1);
@@ -286,7 +293,6 @@ public class Main {
         Juan.getHorario().set(3, "Martes AM");
         Juan.getHorario().set(4, "Miercoles PM");
         Juan.getHorario().set(5, "Viernes PM");
-        Juan.getHorario().set(6, "Sábado PM");
         Juan.quitarDia("Domingo");
         
         //Juan.horarioCompleto(Juan.getHorario(), Juan.getNombre());
@@ -298,6 +304,7 @@ public class Main {
 
         // El coach añade un ejercicio a la rutina del usuario
         Pedro.agregarEjercicioARutina(rutina, "Bicicleta");
+        Juanita.agregarEjercicioARutina(rutina, "Estiramiento d eperrito");
 
         // Imprimir la rutina actualizada
         System.out.println("\nRutina actualizada:");
@@ -307,4 +314,3 @@ public class Main {
         System.out.println("                 ¡REGISTRO COMPLETADO!             ");
         System.out.println("═══════════════════════════════════════════════════");
     }
-}
