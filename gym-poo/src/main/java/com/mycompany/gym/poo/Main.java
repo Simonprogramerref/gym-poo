@@ -1,4 +1,3 @@
-
 package com.mycompany.gym.poo;
 
 import com.mycompany.gym.model.Usuario;
@@ -11,7 +10,8 @@ import com.mycompany.gym.service.Gimnasio;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-
+import java.text.NumberFormat;
+import java.util.Locale;
 
 public class Main {
 
@@ -61,15 +61,23 @@ public class Main {
 
         System.out.println("═══════════════════════════════════════════════════\n");
 
-        // Validación de disponibilidad ECONÓMICA
+        // Validación de presupuesto
+        double presupuesto = 0;
+        NumberFormat formatoMoneda = NumberFormat.getCurrencyInstance(new Locale("es", "CO")); // Formato para pesos colombianos
+        formatoMoneda.setMaximumFractionDigits(0); // Sin decimales
+
         while (true) {
             System.out.print("→ ¿Cuál es tu presupuesto? (para pagar la mensualidad del gym SAY): ");
             String input = scanner.nextLine();
 
             if (input.matches("\\d+")) { // Verifica que la entrada sea solo dígitos
-                int presupuesto = Integer.parseInt(input);
+                presupuesto = Double.parseDouble(input);
                 if (presupuesto >= 0) {
-                    user1.setDisponibilidad(presupuesto);
+                    // Redondear el presupuesto a la unidad más cercana
+                    presupuesto = Math.round(presupuesto);
+                    // Imprimir presupuesto formateado en pesos colombianos
+                    System.out.println("Tu presupuesto es: " + formatoMoneda.format(presupuesto));
+                    user1.setDisponibilidad((int) presupuesto);
                     break;
                 } else {
                     System.out.println("Error: El presupuesto debe ser un valor mayor o igual a cero.");
@@ -79,7 +87,7 @@ public class Main {
             }
         }
 
-         // Membresías disponibles
+        // Membresías disponibles
         Membresia superDeveloped = new Membresia("SUPERDEVELOPED", 500.0);
         Membresia medioDevelop = new Membresia("MEDIODEVELOP", 200.0);
         Membresia yoProgramando = new Membresia("YOPROGRAMANDO", 100.0);
@@ -112,24 +120,21 @@ public class Main {
             }
         }
 
-        System.out.println("\nHas seleccionado la membresíaa: " + seleccionada.mostrarDetalles());
+        System.out.println("\nHas seleccionado la membresía: " + seleccionada.mostrarDetalles());
 
         // Verificar si el presupuesto es suficiente
-        double presupuesto = user1.getDisponibilidad();
         double precioFinal = seleccionada.getPrecioBase();
 
         if (presupuesto < precioFinal) {
             System.out.println("El presupuesto no es suficiente para pagar la membresía seleccionada.");
             System.out.println("¿Tienes tarjeta de crédito? (escribe 'true' o 'false')");
             String tarjetaInput = scanner.nextLine().trim().toLowerCase();
-            boolean tarjeta = tarjetaInput.equals("true");
+            boolean tieneTarjeta = tarjetaInput.equals("true");
 
-            if (!tarjeta) {
+            if (!tieneTarjeta) {
                 System.out.println("Lamentamos informarle que no podrá acceder a ninguna membresía.");
-                user1.setTarjeta(false);
             } else {
-                System.out.println("Afortunadamente cuenta con una tarjeta que lo respalda para acceder a nuestros servicios.");
-                user1.setTarjeta(true);
+                System.out.println("Afortunadamente cuentas con una tarjeta que lo respalda para acceder a nuestros servicios.");
 
                 System.out.print("¿De cuánto es el monto de su tarjeta de crédito? ");
                 double monto = scanner.nextDouble();
@@ -146,18 +151,15 @@ public class Main {
             }
         } else {
             System.out.println("¡Con el presupuesto ingresado puedes pagar la membresía seleccionada!");
-            // Aquí puedes agregar la lógica para procesar el pago si es necesario
         }
-        
-        
-        
-        System.out.print("Por lo tanto su valor final a pagar será de: " + precioFinal );
-        
+
+        System.out.println("El valor final a pagar será de: " + formatoMoneda.format(precioFinal));
+
         System.out.println("\n Gracias, " + user1.getNombre() + " por la información");
         System.out.println("═══════════════════════════════════════════════════");
         System.out.println("Ahora vamos a lo más importante, tus entrenadores. ");
         System.out.println("═══════════════════════════════════════════════════\n");
-        
+
         // Mostrar preferencias disponibles
         List<String> preferencias = new ArrayList<>();
         preferencias.add("CARDIO");
@@ -168,19 +170,19 @@ public class Main {
         //validar la preferencia 
         while (true) {
             System.out.println("──────────────────────────────");
-            System.out.println("Preferencias disponibles:" + "escoge una");
+            System.out.println("Preferencias disponibles: escoge una");
 
             for (int i = 0; i < preferencias.size(); i++) {
                 System.out.println((i + 1) + ". " + preferencias.get(i));
             }
-            String preferencia = scanner.nextLine();
 
-            if (preferencia.matches("[a-zA-Z_]+")) {
-                user1.setPreferencias(preferencias);
+            String seleccionPreferencia = scanner.nextLine();
+            if (seleccionPreferencia.matches("\\d") && Integer.parseInt(seleccionPreferencia) > 0 && Integer.parseInt(seleccionPreferencia) <= preferencias.size()) {
+                int index = Integer.parseInt(seleccionPreferencia) - 1;
+                user1.setPreferencias(List.of(preferencias.get(index)));
                 break;
-
             } else {
-                System.out.println(" Error: Las preferencias debe contener solo caracteres alfabéticos.");
+                System.out.println("Error: Selecciona un número válido de la lista de preferencias.");
             }
         }
 
@@ -194,7 +196,6 @@ public class Main {
 
         // Crear Coach y agregar un ejercicio a la rutina del usuario
         List<String> horarioCoach = new ArrayList<>();
-
         horarioCoach.add("Lunes");
         horarioCoach.add("Miércoles");
 
@@ -205,7 +206,7 @@ public class Main {
 
         Coach Juanita = new Coach("Juanita", horarioCoach, 80.0, Coach.Especialidad.YOGA, rutina.getEjercicios(), 80, "Alta");
         Juanita.agregarDia("Jueves");
-        Juanita.agregarDia("Sabado");
+        Juanita.agregarDia("Sábado");
         Juanita.agregarDia("Domingo");
 
         // Mostrar horario del coach
