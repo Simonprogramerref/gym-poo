@@ -15,8 +15,6 @@ public class Main {
 
     public static void main(String[] args) {
         Gimnasio gimnasio = new Gimnasio();
-
-        // Crear usuario por consola 
         Scanner scanner = new Scanner(System.in);
         Usuario user1 = new Usuario();
 
@@ -78,9 +76,7 @@ public class Main {
         }
 
         // Mostrar preferencias disponibles
-        System.out.print("---------->\nAhora necesitamos que nos hables de tus preferencias.\n");
         List<String> preferencias = new ArrayList<>();
-
         preferencias.add("CARDIO");
         preferencias.add("YOGA");
         preferencias.add("FUERZA");
@@ -88,20 +84,50 @@ public class Main {
 
         System.out.println("\nPreferencias disponibles:");
         System.out.println("──────────────────────────────");
-        int tamaño = preferencias.size();
-        for (int i = 0; i < tamaño; i++) {
-            // Imprimir el número y la preferencia
+        for (int i = 0; i < preferencias.size(); i++) {
             System.out.println((i + 1) + ". " + preferencias.get(i));
         }
 
-        // Crear usuario
-        Usuario usuario = new Usuario("Juan", 30, 8, preferencias);
+        // Elegir membresía
+        Membresia superDeveloped = new Membresia("SUPERDELVELOPED", 100.0);
+        Membresia medioDevelop = new Membresia("MEDIODEVELOP", 75.0);
+        Membresia yoProgramando = new Membresia("YOPROGRAMANDO", 50.0);
+
+        System.out.println("\nElige tu membresía:");
+        System.out.println("──────────────────────────────");
+        System.out.println("1. SUPERDELVELOPED - Entrena todos los días de la semana, puede escoger a todos los coaches");
+        System.out.println("2. MEDIODEVELOP - Solo puede escoger 3 entrenadores y no entrena los fines de semana");
+        System.out.println("3. YOPROGRAMANDO - Solo entrena 1 coach, no entrena los lunes, miércoles ni sábados");
+
+        Membresia seleccionada = null;
+        while (seleccionada == null) {
+            System.out.print("→ Elige una opción (1, 2, 3): ");
+            int opcion = scanner.nextInt();
+            scanner.nextLine(); // Consumir el salto de línea
+
+            switch (opcion) {
+                case 1:
+                    seleccionada = superDeveloped;
+                    break;
+                case 2:
+                    seleccionada = medioDevelop;
+                    break;
+                case 3:
+                    seleccionada = yoProgramando;
+                    break;
+                default:
+                    System.out.println(" Error: Opción inválida. Por favor, elige un número válido.");
+                    break;
+            }
+        }
+
+        System.out.println("\nHas seleccionado la membresía: " + seleccionada.mostrarDetalles());
 
         // Registrar usuario
-        gimnasio.registrarUsuario(usuario);
+        gimnasio.registrarUsuario(user1);
 
         // Asignar rutina
-        Rutina rutina = gimnasio.asignarRutina(usuario);
+        Rutina rutina = gimnasio.asignarRutina(user1);
         System.out.println("\nRutina asignada:");
         System.out.println(rutina.mostrarRutina());
 
@@ -122,17 +148,14 @@ public class Main {
         System.out.println("\nRutina actualizada:");
         System.out.println(rutina.mostrarRutina());
 
-        // Crear membresía
-        Membresia membresia = new Membresia("Estándar", 50.0);
-
         // Intentar procesar pago con presupuesto insuficiente
         double presupuesto = 40.0;
-        double precioFinal = gimnasio.procesarPago(usuario, membresia, presupuesto);
+        double precioFinal = gimnasio.procesarPago(user1, seleccionada, presupuesto);
 
         // Si el presupuesto es insuficiente, procesar pago con tarjeta de crédito
         if (precioFinal == 0) {
             TarjetaCredito tarjeta = new TarjetaCredito("1234-5678-9012-3456", "Juan Pérez", 1000.0);
-            gimnasio.procesarPagoConTarjeta(usuario, membresia, tarjeta, 3);
+            gimnasio.procesarPagoConTarjeta(user1, seleccionada, tarjeta, 3);
         }
 
         System.out.println("\n═══════════════════════════════════════════════════");
