@@ -87,10 +87,10 @@ public class Main {
             }
         }
 
-        // Membresías disponibles con precios en pesos colombianos
-        Membresia superDeveloped = new Membresia("SUPERDEVELOPED", 300000);
-        Membresia medioDevelop = new Membresia("MEDIODEVELOP", 150000);
-        Membresia yoProgramando = new Membresia("YOPROGRAMANDO", 89900);
+        // Membresías disponibles
+        Membresia superDeveloped = new Membresia("SUPERDEVELOPED", 500.0);
+        Membresia medioDevelop = new Membresia("MEDIODEVELOP", 200.0);
+        Membresia yoProgramando = new Membresia("YOPROGRAMANDO", 100.0);
 
         System.out.println("\nElige tu membresía:");
         System.out.println("──────────────────────────────");
@@ -121,7 +121,6 @@ public class Main {
         }
 
         System.out.println("\nHas seleccionado la membresía: " + seleccionada.mostrarDetalles());
-        System.out.println("Precio de la membresía: " + formatoMoneda.format(seleccionada.getPrecioBase()));
 
         // Verificar si el presupuesto es suficiente
         double precioFinal = seleccionada.getPrecioBase();
@@ -168,7 +167,7 @@ public class Main {
         preferencias.add("FUERZA");
         preferencias.add("ZUMBA");
 
-        // Validar la preferencia 
+        //validar la preferencia 
         while (true) {
             System.out.println("──────────────────────────────");
             System.out.println("Preferencias disponibles: escoge una");
@@ -197,25 +196,45 @@ public class Main {
 
         // Crear Coach y agregar un ejercicio a la rutina del usuario
         List<String> horarioCoach = new ArrayList<>();
-        horarioCoach.add("Lunes");
-        horarioCoach.add("Miércoles");
+     
+        
+        
 
         Coach Pedro = new Coach("Pedro", horarioCoach, 50.0, Coach.Especialidad.CARDIO, rutina.getEjercicios(), 45, "Media");
         // Mostrar horario del coach PEDRO 
         System.out.println("\nHorario del Coach " + Pedro.getNombre() + ":");
+        
+        Pedro.getHorario().set(0, "Lunes AM");
+        Pedro.getHorario().set(1, "Martes PM");
+        Pedro.getHorario().set(2, "Miercoles AM");
+        Pedro.getHorario().set(3, "Jueves AM");
         Pedro.mostrarHorario();
 
         Coach Juanita = new Coach("Juanita", horarioCoach, 80.0, Coach.Especialidad.YOGA, rutina.getEjercicios(), 80, "Alta");
-        Juanita.agregarDia("Jueves");
-        Juanita.agregarDia("Sábado");
-        Juanita.agregarDia("Domingo");
-
-        // Mostrar horario del coach
-        System.out.println("\nHorario del Coach " + Juanita.getNombre() + ":");
+        Juanita.getHorario().set(3, "Jueves PM");
+        Juanita.getHorario().set(5, "Sábado AM");
+        Juanita.getHorario().set(6, "Domingo PM");
         Juanita.mostrarHorario();
+        
+        
+        Coach Byron = new Coach("Byron", horarioCoach, 200.0, Coach.Especialidad.FUERZA, rutina.getEjercicios(), 100, "Máxima");
+        Byron.getHorario().set(0, "Lunes PM");
+        Byron.getHorario().set(6, "Domingo AM");
+        Byron.mostrarHorario();
+        
+        Coach Juan = new Coach("Juan", horarioCoach, 30.0, Coach.Especialidad.ZUMBA, rutina.getEjercicios(), 20, "Mínima");
+        Juan.quitarDia("Lunes");
+        Juan.getHorario().set(3, "Martes AM");
+        Juan.getHorario().set(4, "Miercoles PM");
+        Juan.getHorario().set(5, "Viernes PM");
+        Juan.getHorario().set(6, "Sábado PM");
+        Juan.quitarDia("Domingo");
+        
+        Juan.mostrarHorario();
+        
+        
+               
 
-        Juanita.quitarDia(Juanita.getHorario(), "Miércoles");
-        Juanita.mostrarHorario();
 
         // El coach añade un ejercicio a la rutina del usuario
         Pedro.agregarEjercicioARutina(rutina, "Bicicleta");
