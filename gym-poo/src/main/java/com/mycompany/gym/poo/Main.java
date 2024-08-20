@@ -237,7 +237,6 @@ public class Main {
         Juan.getHorario().set(3, "Martes AM");
         Juan.getHorario().set(4, "Miercoles PM");
         Juan.getHorario().set(5, "Viernes PM");
-        Juan.quitarDia("Domingo");
 
         //Juan.horarioCompleto(Juan.getHorario(), Juan.getNombre());
         // El coach añade un ejercicio a la rutina del usuario
