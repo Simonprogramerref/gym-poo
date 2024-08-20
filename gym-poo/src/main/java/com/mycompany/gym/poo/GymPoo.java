@@ -3,6 +3,9 @@
  */
 package com.mycompany.gym.poo;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author sebas
