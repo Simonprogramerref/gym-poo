@@ -151,13 +151,11 @@ public class Main {
             }
         } else {
             System.out.println("¡Con el presupuesto ingresado puedes pagar la membresía seleccionada!");
-            
+
         }
-        
+
         //guardamos en en usuario el tipo de membresia que quería 
         user1.setMembresiaUsuario(seleccionada.getTipo());
-        
-        
 
         System.out.println("El valor final a pagar será de: " + formatoMoneda.format(precioFinal));
 
@@ -165,21 +163,15 @@ public class Main {
         System.out.println("═══════════════════════════════════════════════════");
         System.out.println("Ahora vamos a lo más importante, tus entrenadores. ");
         System.out.println("═══════════════════════════════════════════════════\n");
-        
+
         //segumos interactuando con el usuario pero ahora dependiendo de la memebresia 
-        
         System.out.println("\n Ahora que ya sabemos que tu membresia es " + user1.getMembresiaUsuario() + " te daremos más información acorde a esta: ");
-            if (user1.getMembresiaUsuario().equals("SUPERDEVELOPED"))
-        {
+        if (user1.getMembresiaUsuario().equals("SUPERDEVELOPED")) {
             System.out.println("Usted puede entrenar todos los días, ahorita a la hora de escoger horario, puede hacerlo a diario");
             System.out.println("Así mismo, usted podría escoger a todos los coachs");
             System.out.println("Recuerda que tu prefrencia fue" + "");
-            
-            
-        
-    }
-        
-        
+
+        }
 
         // Mostrar preferencias disponibles
         List<String> preferencias = new ArrayList<>();
@@ -217,16 +209,12 @@ public class Main {
 
         // Crear Coach y agregar un ejercicio a la rutina del usuario
         List<String> horarioCoach = new ArrayList<>();
-     
-        
-        
 
         Coach Pedro = new Coach("Pedro", horarioCoach, 50.0, Coach.Especialidad.CARDIO, rutina.getEjercicios(), 60, "Media");
         // Mostrar horario del coach PEDRO 
         //System.out.println("\nHorario del Coach " + Pedro.getNombre() + ":");
-        
+
         //las jornadas son de 12 horas, si trabajan medio dia trabajan 6 
-        
         Pedro.getHorario().set(0, "Lunes AM");
         Pedro.getHorario().set(1, "Martes PM");
         Pedro.getHorario().set(2, "Miercoles AM");
@@ -238,29 +226,20 @@ public class Main {
         Juanita.getHorario().set(5, "Sábado AM");
         Juanita.getHorario().set(6, "Domingo PM");
         //Juanita.horarioCompleto(Juanita.getHorario(), Juanita.getNombre());
-        
-  
-        
+
         Coach Byron = new Coach("Byron", horarioCoach, 200.0, Coach.Especialidad.FUERZA, rutina.getEjercicios(), 72, "Máxima");
         Byron.getHorario().set(0, "Lunes PM");
         Byron.getHorario().set(6, "Domingo AM");
         //Byron.horarioCompleto(Byron.getHorario(), Byron.getNombre());
-        
+
         Coach Juan = new Coach("Juan", horarioCoach, 30.0, Coach.Especialidad.ZUMBA, rutina.getEjercicios(), 48, "Mínima");
         Juan.quitarDia("Lunes");
         Juan.getHorario().set(3, "Martes AM");
         Juan.getHorario().set(4, "Miercoles PM");
         Juan.getHorario().set(5, "Viernes PM");
-        Juan.getHorario().set(6, "Sábado PM");
         Juan.quitarDia("Domingo");
-        
+
         //Juan.horarioCompleto(Juan.getHorario(), Juan.getNombre());
-        
-        
-        
-               
-
-
         // El coach añade un ejercicio a la rutina del usuario
         Pedro.agregarEjercicioARutina(rutina, "Bicicleta");
 
