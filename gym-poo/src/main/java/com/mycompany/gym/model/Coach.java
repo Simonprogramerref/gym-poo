@@ -12,6 +12,7 @@ public class Coach extends Rutina {
     private Especialidad especialidad;
     private List<String> mediaJornada;
     private List<String> jornadaCompleta;
+    private String preferenciaUsuario;
 
     public enum Especialidad {
         CARDIO, YOGA, ZUMBA, FUERZA
@@ -73,6 +74,12 @@ public class Coach extends Rutina {
         return jornadaCompleta;
     }
 
+    public String getPreferenciaUsuario() {
+        return preferenciaUsuario;
+    }
+    
+    
+
     // SETTERS
     public void setNombre(String nombre) {
         this.nombre = nombre;
@@ -90,6 +97,14 @@ public class Coach extends Rutina {
         this.especialidad = especialidad;
     }
 
+    public void setPreferenciaUsuario(String preferenciaUsuario) {
+        this.preferenciaUsuario = preferenciaUsuario;
+    }
+
+    
+    
+    
+
     // Métodos de la clase
     public void agregarDia(String dia) {
         horario.add(dia);
@@ -103,7 +118,10 @@ public class Coach extends Rutina {
             }
         }
     }
+    
 
+    
+    
     public void clasificarHorario() {
         if (mediaJornada == null) {
             mediaJornada = new ArrayList<>();
