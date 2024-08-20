@@ -121,7 +121,7 @@ public class Main {
             }
         }
 
-        System.out.println("\nHas seleccionado la membresía: " + seleccionada.mostrarDetalles());
+        System.out.println("\nHas seleccionado la membresíaa: " + seleccionada.mostrarDetalles());
 
         // Registrar usuario
         gimnasio.registrarUsuario(user1);
