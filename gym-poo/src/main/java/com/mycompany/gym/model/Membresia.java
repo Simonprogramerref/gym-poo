@@ -28,4 +28,18 @@ public class Membresia {
     public double getPrecioBase() {
         return precioBase;
     }
+
+    // Métodos específicos para cada tipo de membresía
+    public boolean puedeEntrenar(String dia, int coachPermitidos) {
+        switch (tipo) {
+            case "SUPERDELVELOPED":
+                return true; // Puede entrenar todos los días y escoger cualquier coach
+            case "MEDIODEVELOP":
+                return !dia.equalsIgnoreCase("Sábado") && !dia.equalsIgnoreCase("Domingo") && coachPermitidos <= 3;
+            case "YOPROGRAMANDO":
+                return !dia.equalsIgnoreCase("Lunes") && !dia.equalsIgnoreCase("Miércoles") && !dia.equalsIgnoreCase("Sábado") && coachPermitidos == 1;
+            default:
+                return false; // No permitido por defecto
+        }
+    }
 }
