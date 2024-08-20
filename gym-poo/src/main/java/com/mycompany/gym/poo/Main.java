@@ -88,9 +88,9 @@ public class Main {
         }
 
         // Membresías disponibles con precios en pesos colombianos
-        Membresia superDeveloped = new Membresia("SUPERDEVELOPED", 300000.0);
-        Membresia medioDevelop = new Membresia("MEDIODEVELOP", 150000.0);
-        Membresia yoProgramando = new Membresia("YOPROGRAMANDO", 89900.0);
+        Membresia superDeveloped = new Membresia("SUPERDEVELOPED", 300000);
+        Membresia medioDevelop = new Membresia("MEDIODEVELOP", 150000);
+        Membresia yoProgramando = new Membresia("YOPROGRAMANDO", 89900);
 
         System.out.println("\nElige tu membresía:");
         System.out.println("──────────────────────────────");
