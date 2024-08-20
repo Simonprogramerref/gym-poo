@@ -1,7 +1,13 @@
 import java.util.ArrayList;
 import java.util.List;
 
-// Clase principal del gimnasio
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ *
+ * @author sebas
+ */
 public class GymPoo {
 
     // Clase interna Usuario
